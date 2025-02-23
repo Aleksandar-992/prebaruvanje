@@ -1,1 +1,39 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - main  # Или вашата главна грана
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'  # Изберете ја верзијата на Python која ви е потребна
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests
+        run: |
+          # Вметнете командите за тестирање на вашата апликација
+          pytest  # Или друга команда за тестирање
+
+      - name: Deploy
+        run: |
+          # Вметнете ги командите за деплојирање на вашата апликација
+          echo "Deploying to production..."
+          # Примерно: scp, rsync, или други алатки за деплојирање
 
